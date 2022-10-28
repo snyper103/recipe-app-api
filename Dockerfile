@@ -1,4 +1,4 @@
-FROM python:3.9-alpine3.13
+FROM python:3.10.8-alpine3.16
 LABEL maintainer="Gabriel Alexandre de Souza Braga"
 
 ENV PYTHONUNBUFFERED 1

@@ -1,5 +1,5 @@
 """
-Test custom Django management commands.
+Testa gerenciamento de comandos personalizados do Django.
 """
 
 from unittest.mock import patch
@@ -13,23 +13,23 @@ from django.test import SimpleTestCase
 
 @patch('core.management.commands.wait_for_db.Command.check')
 class CommandTest(SimpleTestCase):
-    """Test commands."""
-    
+    """Classe para teste unitário dos comandos."""
+
     def test_wait_for_db_is_ready(self, patched_check):
-        """Test waiting for database if the database is ready."""
+        """Testa a espera até que o banco de dados esteja disponível."""
         patched_check.return_value = True
-        
+
         call_command('wait_for_db')
-        
+
         patched_check.assert_called_once_with(databases=['default'])
-        
+
     @patch('time.sleep')
     def test_wait_for_db_delay(self, patched_sleep, patched_check):
-        """Test waiting for database when getting OperationalError."""
+        """Testa a espera do banco de dados quando há erro operacional."""
         patched_check.side_effect = [Psycopg2Error] * 2 + \
             [OperationalError] * 3 + [True]
-            
+
         call_command('wait_for_db')
-        
+
         self.assertEqual(patched_check.call_count, 6)
         patched_check.assert_called_with(databases=['default'])
