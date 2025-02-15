@@ -1,11 +1,19 @@
 #!/usr/bin/env python
-"""Django's command-line utility for administrative tasks."""
 import os
 import sys
 
 
 def main():
-    """Run administrative tasks."""
+    """
+    Represents the main entry point for a Django application. This function initializes
+    the Django environment by setting the default settings module and handles the
+    execution of management commands. If Django cannot be imported, it raises an
+    ImportError providing details on the possible causes.
+
+    Raises:
+        ImportError: If Django modules cannot be imported due to missing installation
+        or improper environment setup.
+    """
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'app.settings')
     try:
         from django.core.management import execute_from_command_line
